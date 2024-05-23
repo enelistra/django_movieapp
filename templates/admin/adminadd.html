@@ -1,0 +1,19 @@
+{% extends 'admin/adminbase.html' %}
+{% block body %}
+<div class="container-fluid row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <p class="addtitle">ADD MOVIES</p>
+        <div class="addform">
+            <form action="{% url 'adminadd' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p><input type="text" placeholder="Name" name="name" style="padding: 5px; width: 260px; border: none; border-radius: 5px;"></p>
+                <p><textarea name="desc" id="" cols="30" rows="5" placeholder="Description" style="padding: 5px; width: 260px; border: none; border-radius: 5px;"></textarea></p>
+                <p><input type="text" placeholder="Year" name="year" style="padding: 5px; width: 260px; border: none; border-radius: 5px;"></p>
+                <p><input type="file" name="img"></p>
+                <p><input type="submit" class="btn btn-success" value="Submit"></p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

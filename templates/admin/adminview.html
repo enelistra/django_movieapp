@@ -1,0 +1,21 @@
+{% extends 'admin/adminbase.html' %}
+
+
+{% block body %}
+
+<div class="container-fluid row p-3" style="margin-bottom: 200px;">
+    {% for i in obj %}
+    <div class="col-3">
+        <div class="card mt-4 bg-success" style="width: 100%;">
+            <img src="{{ i.imageURL }}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">{{ i.name }}</h5>
+            <p class="card-text">{{ i.year }}</p>
+            <a href="{% url 'admindetails' i.id %}" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

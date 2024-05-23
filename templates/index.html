@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div>
+    <p class="text-center text-success" style="font-size: 50px; font-style: italic; font-weight: 700; padding: 20px; margin: 20px;">New Top Rated Movies</p>
+</div>
+
+<div class="container-fluid row p-3">
+    {% for i in obj %}
+    <div class="col-3">
+        <div class="card mt-4 bg-success" style="width: 100%;">
+            <img src="{{ i.imageURL }}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">{{ i.name }}</h5>
+            <p class="card-text">{{ i.year }}</p>
+            <a href="{% url 'details' i.id %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

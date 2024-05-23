@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid row mt-5">
+    <div class="col-4">
+        <div><img src="{{ movie.imageURL }}" alt="..." width="80%" class="rounded"></div>
+    </div>
+    <div class="col-6 p-5 bg-success" style="border: 1px solid; border-radius: 6px; margin-bottom: 100px; margin-top: 50px;">
+        <p class="detailp">{{ movie.name }}</p>
+        <p class="detailp">{{ movie.desc }}</p>
+        <p class="detailp">{{ movie.year }}</p>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Write a Review
+        </button>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Review</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'review' movie.id %}" method="post">
+                            {% csrf_token %}
+                            <textarea name="review" id="" cols="60" rows="3"></textarea>
+                            <input type="submit" value="Post" class="btn btn-success">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Add to Watch list" class="btn btn-primary mt-4">
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div style="border: none; border-radius: 10px; background-color: aliceblue; padding: 50px;">
+        <h4>Reviews:</h4>
+        {% for review in reviews %}
+            <p class="text-success">{{ review.username }}: {{ review.message }}</p>
+            {% for reply in review.replies.all %}
+                <p style="margin-left: 50px;" class="text-danger">{{ reply.username }}: {{ reply.message }}</p>
+            {% empty %}
+                <p>  </p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

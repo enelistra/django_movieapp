@@ -1,0 +1,58 @@
+{% extends 'admin/adminbase.html' %}
+
+{% block body %}
+
+<div class="container row mt-5">
+    <div class="col-4">
+        <div><img src="{{ mymovie.img.url }}" alt="..." width="80%" class="rounded"></div>
+    </div>
+    <div class="col-6 p-5 bg-success" style="border: 1px solid; border-radius: 6px; margin-bottom: 100px; margin-top: 10px;">
+        <p class="detailp">{{ mymovie.name }}</p>
+        <p class="detailp">{{ mymovie.desc }}</p>
+        <p class="detailp">{{ mymovie.year }}</p>
+    </div>
+</div>
+
+<p>
+    <a href="{% url 'update_movies' mymovie.id %}"><button type="button" class="btn btn-primary mx-5">Update</button></a>
+    <a href="{% url 'delete' mymovie.id %}"><button type="button" class="btn btn-danger mx-5">Delete</button></a>
+</p>
+
+<div class="card m-5">
+    <h5 class="card-header">REVIEWS</h5>
+    <div class="card-body">
+        {% for review in reviews_list %}
+            <p class="text-success">{{ review.username }}: {{ review.message }}</p>
+            {% for reply in review.replies.all %}
+                <p style="margin-left: 50px; font-weight: 500;" class="text-danger">{{ reply.username }}: {{ reply.message }}</p>
+            {% empty %}
+                <p>  </p>
+            {% endfor %}
+            <button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal{{ review.id }}">
+                Reply To {{ review.username }}
+            </button>
+            <div class="modal fade" id="exampleModal{{ review.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Reply</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{% url 'replys' movie_id=movie_id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="review_id" value="{{ review.id }}">
+                                <p><textarea name="reply_text" id="" cols="60" rows="4" placeholder="Reply message"></textarea></p>
+                                <p><input type="submit" class="btn btn-success" value="submit"></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

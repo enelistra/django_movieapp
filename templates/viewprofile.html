@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="text-center" style="margin-bottom: 140px; margin-top: 100px;">
+        <div class="card bg-success p-5 text-white">
+            <p style="font-size: 30px; font-weight: 700;">User Details</p>
+            <p style="font-size: 20px; font-weight: 600; font-style: italic;">Name : {{ person }}</p>
+            <p style="font-size: 20px; font-weight: 600; font-style: italic;">E-mail : {{email}} </p>
+            <p style="font-size: 20px; font-weight: 600; font-style: italic;"> Number of movies in watchlist : {{ moviesnumber }} </p>
+        </div>
+    </div>
+
+{% endblock %}

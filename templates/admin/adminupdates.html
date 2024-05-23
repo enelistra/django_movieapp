@@ -1,0 +1,12 @@
+{% extends 'admin/adminbase.html' %}
+{% block body %}
+<div class="container">
+    <div class="update">
+        <form action="{% url 'update_movies' movie.id %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-info mt-5">Update</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

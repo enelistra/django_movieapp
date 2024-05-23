@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row p-5">
+        {% for movies in search_results %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body row">
+                    <img src="{{ movies.imageURL }}" alt="..." width="30%">
+                    <h5 class="card-title">{{ movies.name }}</h5>
+                    <p class="card-text">{{ movies.year }}</p>
+                    <a href="{% url 'details' movies.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No results found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

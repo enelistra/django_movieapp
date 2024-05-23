@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+    <h2 class="text-center p-5">My Watchlist</h2>
+    <div class="row">
+        {% for item in watchlist_movies %}
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <img class="card-img-top" src="{{ item.movie.img.url }}" alt="{{ item.movie.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.movie.name }}</h5>
+                    <!-- <p class="card-text">{{ item.movie.desc }}</p> -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{% url 'remove_from_watchlist' movie_id=item.movie.id %}"><button type="button" class="btn btn-danger">Remove</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12" style="margin-bottom: 300px; margin-top: 100px;">
+            <p>No movies in your watchlist yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
